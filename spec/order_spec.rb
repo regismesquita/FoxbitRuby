@@ -15,7 +15,7 @@ RSpec.describe 'Order' do
       expect(@orders[:bids].size).to eq(2)
     end
 
-    it 'should load mutiple bids' do
+    it 'should load mutiple asks' do
       expect(@orders[:asks].size).to eq(2)
     end
 

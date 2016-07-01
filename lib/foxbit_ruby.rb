@@ -4,7 +4,8 @@ require 'json'
 
 class FoxbitRuby
   API_URL='https://api.blinktrade.com/'
-  def get_orders
+
+  def orders
     parsed_json_orders=JSON.parse(connection.get('/api/v1/BRL/orderbook').body)
     Order.orders_from_api(parsed_json_orders)
   end
