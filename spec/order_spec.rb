@@ -1,5 +1,3 @@
-require 'order'
-
 RSpec.describe Order do
   describe '.order_from_api' do
     before(:each) do

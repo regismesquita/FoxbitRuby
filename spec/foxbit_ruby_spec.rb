@@ -1,5 +1,3 @@
-require 'foxbit_ruby'
-
 RSpec.describe "FoxbitRuby#orders" do
   before do
     stub = stub_request(:get, 'https://api.blinktrade.com/api/v1/BRL/orderbook')
