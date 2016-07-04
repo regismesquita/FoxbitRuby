@@ -22,6 +22,17 @@ class FoxbitRuby
     current_order.price
   end
 
+  def instant_buy_price(amount_to_buy=0)
+    price_ordered_list = orders[:asks].sort{|c,d| c.price <=> d.price}
+    current_amount = 0
+    while
+      current_order = price_ordered_list.shift
+      current_amount += current_order.bitcoin_amount
+      break if current_amount >= amount_to_buy
+    end
+    raise 'Amount not available' if current_order.nil?
+    current_order.price
+  end
   private
 
   def api_data

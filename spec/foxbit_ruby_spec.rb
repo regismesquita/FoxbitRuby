@@ -40,4 +40,24 @@ RSpec.describe FoxbitRuby do
       expect{subject.instant_sell_price(1.00)}.to raise_exception('Amount not available')
     end
   end
+  describe '#instant_buy_price' do
+    before do
+      stub = stub_request(:get, 'https://api.blinktrade.com/api/v1/BRL/orderbook')
+        .to_return(body: '{"pair":"BTCBRL","bids":[[1990.0,0.01,90804599]],"asks":[[2400.00,0.20,90855278],[2200.00,0.15,90855277],[2000.00,0.10,90855276]]}')
+    end
+
+    it 'returns lowest ask price in order book (so we can buy)' do
+      expect(subject.instant_buy_price).to eq(2000)
+    end
+
+    it 'returns lowest ask price for the amount we want to buy.' do
+      expect(subject.instant_buy_price(0.25)).to eq(2200)
+    end
+
+    context 'given an amount not available'
+    it "throw an 'amount not available' exception" do
+      expect{subject.instant_buy_price(1.00)}.to raise_exception('Amount not available')
+    end
+  end
+
 end
