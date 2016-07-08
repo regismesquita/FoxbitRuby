@@ -33,6 +33,17 @@ class FoxbitRuby
     raise 'Amount not available' if current_order.nil?
     current_order.price
   end
+
+  def check_balance
+    message = Message.new(api_data)
+    message.raw_payload = {:MsgType=>"U2", :BalanceReqID=>1}
+    connection.post{|req|
+      req.url message.url
+      req.headers = message.headers
+      req.body = message.payload
+    }
+    # Now should have a response handling class to receive that response.
+  end
   private
 
   def api_data
